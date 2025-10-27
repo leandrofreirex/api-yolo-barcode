@@ -1,6 +1,6 @@
 # API de Detecção e Decodificação de QR/Barcode
 
-Esta é uma API de alta performance construída com FastAPI que detecta e decodifica códigos QR e outros tipos de códigos de barras a partir de um arquivo de imagem.
+Esta é uma API com o intuito de simular o funcionamento do ml kit, a ideia é enviar um frame e ele decodificar o resultado, na versao web construída com FastAPI que detecta e decodifica códigos QR e outros tipos de códigos de barras a partir de um arquivo de imagem.
 
 O projeto utiliza uma abordagem de duas etapas para maior precisão e velocidade:
 1.  **Detecção**: Um modelo YOLOv8 (`YOLOV8s_Barcode_Detection.pt`) é usado para localizar a posição dos códigos de barras na imagem.
