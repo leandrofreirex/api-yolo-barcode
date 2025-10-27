@@ -1,6 +1,10 @@
 # API de Detecção e Decodificação de QR/Barcode
 
-Esta é uma API com o intuito de simular o funcionamento do ml kit, a ideia é enviar um frame e ele decodificar o resultado, na versao web construída com FastAPI que detecta e decodifica códigos QR e outros tipos de códigos de barras a partir de um arquivo de imagem.
+[![Publish Docker image](https://github.com/leandrofreires/qr-decoder-api/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/leandrofreires/qr-decoder-api/actions/workflows/docker-publish.yml)
+
+Esta é uma API de alta performance construída com FastAPI que detecta e decodifica códigos QR e outros tipos de códigos de barras a partir de um arquivo de imagem.
+
+A ideia é simular o funcionamento de um serviço como o ML Kit do Google, onde um *frame* (imagem) é enviado e o conteúdo do código de barras é retornado.
 
 O projeto utiliza uma abordagem de duas etapas para maior precisão e velocidade:
 1.  **Detecção**: Um modelo YOLOv8 (`YOLOV8s_Barcode_Detection.pt`) é usado para localizar a posição dos códigos de barras na imagem.
@@ -59,6 +63,20 @@ O `Dockerfile` fornecido facilita a conteinerização da aplicação.
     ```
     A API estará disponível em `http://127.0.0.1:8000`.
 
+### 3. Usando a Imagem do Docker Hub (Recomendado)
+
+A imagem Docker é construída e enviada automaticamente para o Docker Hub através de uma pipeline de CI/CD.
+
+1.  **Puxe a imagem mais recente:**
+    ```bash
+    docker pull leandrofreires/qr-decoder-api:latest
+    ```
+
+2.  **Execute o contêiner:**
+    ```bash
+    docker run -p 8000:8000 leandrofreires/qr-decoder-api:latest
+    ```
+
 ## Como Usar a API
 
 ### Endpoint: `POST /decode_qr/`
@@ -90,4 +108,20 @@ curl -X POST "http://127.0.0.1:8000/decode_qr/" \
 {
   "message": "No QR code found or could not be decoded."
 }
+```
+
+## CI/CD com GitHub Actions
+
+Este repositório está configurado com um workflow de GitHub Actions (`.github/workflows/docker-publish.yml`) que automatiza o processo de build e deploy da imagem Docker.
+
+**Como funciona:**
+- A cada `push` na branch `main`, a action é acionada.
+- Ela faz o login no Docker Hub.
+- Constrói a imagem Docker a partir do `Dockerfile`.
+- Envia a imagem atualizada para o repositório `leandrofreires/qr-decoder-api` no Docker Hub com a tag `latest`.
+
+**Configuração de Secrets:**
+Para que a action funcione, é necessário configurar os seguintes "Repository secrets" nas configurações do seu repositório no GitHub (`Settings > Secrets and variables > Actions`):
+- `DOCKERHUB_USERNAME`: Seu nome de usuário do Docker Hub.
+- `DOCKERHUB_TOKEN`: Um token de acesso gerado na sua conta do Docker Hub.
 ```
