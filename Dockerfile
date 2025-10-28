@@ -10,7 +10,7 @@ COPY requirements.txt .
 
 # Install system dependencies
 RUN apt-get update && \
-    apt-get install libgl1 -y && \
+    apt-get install libgl1 libglib2.0-0 zbar-tools -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
