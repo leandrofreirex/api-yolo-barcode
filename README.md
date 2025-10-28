@@ -1,7 +1,5 @@
 # API de Detecção e Decodificação de QR/Barcode
 
-[![Publish Docker image](https://github.com/leandrofreires/qr-decoder-api/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/leandrofreires/qr-decoder-api/actions/workflows/docker-publish.yml)
-
 Esta é uma API de alta performance construída com FastAPI que detecta e decodifica códigos QR e outros tipos de códigos de barras a partir de um arquivo de imagem.
 
 A ideia é simular o funcionamento de um serviço como o ML Kit do Google, onde um *frame* (imagem) é enviado e o conteúdo do código de barras é retornado.
@@ -108,20 +106,4 @@ curl -X POST "http://127.0.0.1:8000/decode_qr/" \
 {
   "message": "No QR code found or could not be decoded."
 }
-```
-
-## CI/CD com GitHub Actions
-
-Este repositório está configurado com um workflow de GitHub Actions (`.github/workflows/docker-publish.yml`) que automatiza o processo de build e deploy da imagem Docker.
-
-**Como funciona:**
-- A cada `push` na branch `main`, a action é acionada.
-- Ela faz o login no Docker Hub.
-- Constrói a imagem Docker a partir do `Dockerfile`.
-- Envia a imagem atualizada para o repositório `leandrofreires/qr-decoder-api` no Docker Hub com a tag `latest`.
-
-**Configuração de Secrets:**
-Para que a action funcione, é necessário configurar os seguintes "Repository secrets" nas configurações do seu repositório no GitHub (`Settings > Secrets and variables > Actions`):
-- `DOCKERHUB_USERNAME`: Seu nome de usuário do Docker Hub.
-- `DOCKERHUB_TOKEN`: Um token de acesso gerado na sua conta do Docker Hub.
 ```
