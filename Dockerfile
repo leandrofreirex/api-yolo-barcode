@@ -7,8 +7,13 @@ WORKDIR /app
 # Copy the dependencies file to the working directory
 COPY requirements.txt .
 
+
 # Install system dependencies
-RUN apt-get update && apt-get install -y libgl1-mesa-glx -q
+RUN apt-get update && \
+    apt-get install -y libgl1-mesa-glx && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 
 # Install any needed packages specified in requirements.txt
 # We use --no-cache-dir to reduce image size
