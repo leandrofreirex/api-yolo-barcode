@@ -22,4 +22,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: leandrofreires/qr-decoder-api:latest
+          tags: leandrofreirex/qr-decoder-api:latest
